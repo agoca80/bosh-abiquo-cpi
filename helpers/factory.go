@@ -18,10 +18,12 @@ func NewLogger(logger logger.Logger, tag string) *Logger {
 
 // Debug ...
 func (l *Logger) Debug(msg string, args ...interface{}) {
+	Debug(l.Tag+" "+msg, args...)
 	l.Logger.Debug(l.Tag, msg, args...)
 }
 
 // Error ...
 func (l *Logger) Error(msg string, args ...interface{}) {
+	Debug(l.Tag+" "+msg, args...)
 	l.Logger.Error(l.Tag, msg, args...)
 }
