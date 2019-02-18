@@ -119,7 +119,7 @@ func (f Factory) Create(
 		return rollback()
 	}
 
-	if synch := newVM.synchronize(); synch != nil {
+	if synch := newVM.Synchronize(); synch != nil {
 		f.Debug(newVM.Name+" CreateVM: vm was not synchronized: %v", synch)
 	}
 
