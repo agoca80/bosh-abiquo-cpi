@@ -3,7 +3,6 @@ package compute
 import (
 	"errors"
 
-	"github.com/agoca80/bosh-abiquo-cpi/helpers"
 	"github.com/cppforlife/bosh-cpi-go/apiv1"
 )
 
@@ -15,14 +14,14 @@ type Properties struct {
 	VirtualAppliance string `json:"virtualappliance"`
 }
 
-func newProperties(props apiv1.VMCloudProps) (properties *Properties, err error) {
+func (f Factory) newProperties(props apiv1.VMCloudProps) (properties *Properties, err error) {
 	p := &Properties{}
 	hash := make(map[string]interface{})
 	if props != nil {
 		props.As(&hash)
 		props.As(&p)
 	}
-	helpers.Msg("properties : %+v", hash)
+	f.Debug("properties : %+v", hash)
 
 	err = p.validate()
 	if err != nil {

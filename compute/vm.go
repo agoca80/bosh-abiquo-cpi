@@ -30,7 +30,7 @@ func (v *vm) ID() apiv1.VMCID {
 func (v *vm) Delete() (err error) {
 	err = v.VirtualMachine.Delete()
 	if err != nil {
-		v.Debug("while deleting %v : %v", v.Name, err)
+		v.Debug(v.UUID+"while deleting : %v", err)
 	}
 	return
 }

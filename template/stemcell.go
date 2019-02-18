@@ -37,6 +37,6 @@ func (s *stemcell) Exists() (exists bool, err error) {
 func (s *stemcell) Delete() error {
 	// return core.Remove(r.resource)
 	// XXX
-	helpers.Msg("NOP: do not delete stemcell during development")
+	helpers.Debug("NOP: do not delete stemcell during development")
 	return nil
 }

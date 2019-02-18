@@ -20,7 +20,7 @@ func (v *vm) DiskIDs() ([]apiv1.DiskCID, error) {
 // DetachDisk ...
 func (v *vm) DetachDisk(disk storage.Disk) (err error) {
 	return v.reconfigure(func() error {
-		v.Debug(v.Name+" detaching %s", disk.ID())
+		v.Debug(v.UUID+" detaching %s", disk.ID())
 		v.VirtualMachine.DetachDisk(disk.Disk())
 		return nil
 	})
@@ -29,7 +29,7 @@ func (v *vm) DetachDisk(disk storage.Disk) (err error) {
 // AttachDisk ...
 func (v *vm) AttachDisk(disk storage.Disk) (hint apiv1.DiskHint, err error) {
 	err = v.reconfigure(func() error {
-		v.Debug(v.Name+" attaching %s", disk.ID().AsString())
+		v.Debug(v.UUID+" attaching %s", disk.ID().AsString())
 		v.VirtualMachine.AttachDisk(disk.Disk())
 		return nil
 	})

@@ -43,7 +43,7 @@ func (f Factory) Create(
 	networks apiv1.Networks,
 	env apiv1.VMEnv,
 ) (_ VM, err error) {
-	properties, err := newProperties(props)
+	properties, err := f.newProperties(props)
 	if err != nil {
 		f.Debug("getting properties: %v", err)
 		return
@@ -90,12 +90,12 @@ func (f Factory) Create(
 	}
 	newVM := newVM(vm, f.Logger)
 	rollback := func() (VM, error) {
-		f.Debug(newVM.Name+" rollback due to %s", err)
+		f.Debug(newVM.UUID+" rollback due to %s", err)
 		newVM.Delete()
 		return nil, err
 	}
 
-	f.Debug(newVM.Name + " configuring agent")
+	f.Debug(newVM.UUID + " configuring agent")
 	initialAgentEnv := apiv1.NewAgentEnvFactory().ForVM(agentID, newVM.ID(), nets.AsNetworks(), env, f.Options.Agent)
 	initialAgentEnv.AttachSystemDisk(apiv1.NewDiskHintFromString("/dev/vda"))
 	if properties.HardDisk > 0 {
@@ -113,14 +113,14 @@ func (f Factory) Create(
 		}
 	}
 
-	f.Debug(newVM.Name + " deploying")
+	f.Debug(newVM.UUID + " deploying")
 	err = newVM.Deploy()
 	if err != nil {
 		return rollback()
 	}
 
 	if synch := newVM.Synchronize(); synch != nil {
-		f.Debug(newVM.Name+" CreateVM: vm was not synchronized: %v", synch)
+		f.Debug(newVM.UUID+" CreateVM: vm was not synchronized: %v", synch)
 	}
 
 	return newVM, nil

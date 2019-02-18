@@ -15,14 +15,14 @@ func (v *vm) adquireIP(network *Network) (err error) {
 	}
 
 	return v.change(func() error {
-		v.Debug(v.Name+" adquireIP: adquiring ip %v", link.Title)
+		v.Debug(v.UUID+" adquireIP: adquiring ip %v", link.Title)
 		v.AttachNIC(link)
 		return nil
 	})
 }
 
 func (v *vm) configureNIC(network *Network) (err error) {
-	v.Debug(v.Name+" configureNIC: configuring %s IP in %q", network.API.Type(), network.Network.Name)
+	v.Debug(v.UUID+" configureNIC: configuring %s IP in %q", network.API.Type(), network.Network.Name)
 
 	canRetry := func(err error) (can bool) {
 		e, ok := err.(core.Error)
@@ -45,5 +45,5 @@ func (v *vm) configureNIC(network *Network) (err error) {
 		}
 	}
 
-	return fmt.Errorf(v.Name+" configureNIC: couldnt adquire IP in %q", network.Network.Name)
+	return fmt.Errorf(v.UUID+" configureNIC: couldnt adquire IP in %q", network.Network.Name)
 }

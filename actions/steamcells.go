@@ -32,7 +32,7 @@ func (s Stemcells) CreateStemcell(
 	// Ugly crap
 	var stemcell template.Stemcell
 	if properties.Href != "" {
-		helpers.Msg("stemcell href is %s", properties.Href)
+		helpers.Debug("stemcell href is %s", properties.Href)
 		stemcell, err = s.finder.Find(apiv1.NewStemcellCID(properties.Href))
 		if err != nil {
 			return

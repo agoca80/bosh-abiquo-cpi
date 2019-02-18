@@ -21,12 +21,7 @@ func init() {
 	debug = log.New(file, "", 0)
 }
 
-// Log ...
-func Log(format string, values ...interface{}) {
+// Debug ...
+func Debug(format string, values ...interface{}) {
 	debug.Println(fmt.Sprintf(format, values...))
-}
-
-// Msg ...
-func Msg(fmt string, values ...interface{}) {
-	Log("... "+fmt, values...)
 }
